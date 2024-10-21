@@ -70,4 +70,15 @@ class AuthorController extends AbstractController
             'form'=>$form,
         ]);
     }
+    #[Route('/deleteformauthor/{id}', name: 'app5_author')]
+    public function deleteform(ManagerRegistry $manager,Request $req,$id): Response
+    {   
+        $em=$manager->getManager();
+        $author=$em->getRepository(Author::class)->find($id);
+        $em->remove($author);
+        $em->flush();
+        return $this->render('author/add.html.twig', [
+            'controller_name' => 'AuthorController',
+        ]);
+    }
 }
